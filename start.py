@@ -1,18 +1,18 @@
-import pygame as pg
+import pygame
 import sys
 
-pg.init()
+pygame.init()
 size = width, height = 1080, 720
-screen = pg.display.set_mode(size)
+screen = pygame.display.set_mode(size)
 color = (0, 100, 100)
-holo = pg.image.load('pic/holo.jpeg')
-obj = pg.draw.circle(screen, [0, 0, 0], [100, 100], 50)
+holo = pygame.image.load('pic/holo.jpeg')
+obj = pygame.draw.circle(screen, [0, 0, 0], [100, 100], 50)
 holorect = holo.get_rect()
-speed = [1, 1]
+speed = [10, 10]
 
 while True:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             sys.exit()
         holorect = holorect.move(speed)
         if holorect.left < 0 or holorect.right > width:
@@ -23,4 +23,4 @@ while True:
         screen.fill(color)
         screen.blit(holo, holorect)
 
-        pg.display.flip()
+        pygame.display.flip()
