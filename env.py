@@ -2,8 +2,9 @@ import pygame
 
 
 class Env:
-    def __init__(self, gravity):
-        self.gravity = gravity
+    def __init__(self, gravitational_constance, screen):
+        self.G = gravitational_constance
+        self.screen = screen
 
-    def position(self, character_list):
+    def speed_update(self):
         pass
