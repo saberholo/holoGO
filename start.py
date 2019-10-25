@@ -8,38 +8,33 @@ import items
 pygame.init()
 size = width, height = 1080, 720
 screen = pygame.display.set_mode(size)
-env = Env(9.8, screen)
+env = Env(10, screen, 100)
 BLACK = (0, 0, 0)
 clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode(size)
-bullet = items.StandardBullet(screen)
+bullet = items.Bullet(screen, 0, items.StandardBullet, (100, 100))
 
 
-speed = [10, 10]
-fps = 100
+speed = [10, 2]
 
 while True:
     screen.fill(BLACK)
-    clock.tick(fps)
-    bullet.obj = bullet.obj.move(speed)
-    if bullet.obj.left < 0 or bullet.obj.right > width:
-        speed[0] = -speed[0]
-    if bullet.obj.top < 0 or bullet.obj.bottom > height:
-        speed[1] = -speed[1]
+    clock.tick(env.fps)
+    bullet.obj = bullet.obj.move(env.speed_update(speed))
+    env.bound(bullet, speed, width, height)
 
-
-    screen.blit(bullet.surface, bullet.obj)
+    screen.blit(bullet.screen, bullet.obj)
     pygame.display.flip()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
+            bullet = items.Bullet(screen, 0, items.StandardBullet, pos)
 
 
-
-        screen.fill(BLACK)
-        pygame.draw.circle(screen, [0, 0, 0], [300, 300], 200)
 
 
 
